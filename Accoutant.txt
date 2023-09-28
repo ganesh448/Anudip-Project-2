@@ -1,0 +1,36 @@
+package miniProject2;
+
+public class Accountant extends BusinessEmployee {
+    private TechnicalLead teamSupported;
+
+    public Accountant(String name) {
+        super(name);
+        setBonusBudget(0);
+    }
+
+    public TechnicalLead getTeamSupported() {
+        return teamSupported;
+    }
+
+    public void supportTeam(TechnicalLead lead) {
+        this.teamSupported = lead;
+        double teamSalary = 0;
+        for (Employee employee : lead.getTeam()) {
+            teamSalary += employee.getBaseSalary() * 1.1;
+        }
+        setBonusBudget(teamSalary);
+    }
+
+    public boolean approveBonus(double bonus) {
+        if (bonus <= getBonusBudget()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public String employeeStatus() {
+        return super.employeeStatus() + " is supporting " + teamSupported.getName();
+    }
+}

@@ -1,0 +1,58 @@
+package miniProject2;
+
+public abstract class Employee {
+    private String name;
+    private double baseSalary;
+    private int empid;
+    private static int idcount;
+    protected double bonus;
+    private Employee manager;
+    private Accountant accountantSupport;
+    private double bonusBudget;
+
+    public abstract String employeeStatus();
+
+    public Employee(String name, double baseSalary) {
+        this.name = name;
+        this.baseSalary = baseSalary;
+        idcount++;
+        this.empid = idcount;
+    }
+
+    public double getBaseSalary() {
+        return baseSalary;
+    }
+
+    public void setBaseSalary(double baseSalary) {
+        this.baseSalary = baseSalary;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getEmployeeID() {
+        return empid;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager) {
+        this.manager = manager;
+    }
+
+    public Accountant getAccountantSupport() {
+        return accountantSupport;
+    }
+
+    public boolean equals(Employee other) {
+        return this.getEmployeeID() == other.getEmployeeID();
+    }
+
+    @Override
+    public String toString() {
+        return this.getEmployeeID() + " " + this.getName();
+    }
+}

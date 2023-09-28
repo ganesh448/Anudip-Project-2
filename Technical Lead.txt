@@ -1,0 +1,52 @@
+package miniProject2;
+
+import java.util.ArrayList;
+
+public class TechnicalLead extends TechnicalEmployee {
+    private ArrayList<SoftwareEngineer> team = new ArrayList<>();
+    private int headCount;
+
+    public TechnicalLead(String name) {
+        super(name);
+        this.headCount = 4;
+    }
+
+    public boolean hasHeadCount() {
+        return team.size() < headCount;
+    }
+
+    public boolean addReport(SoftwareEngineer e) {
+        if (hasHeadCount()) {
+            team.add(e);
+            e.setManager(this);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean approveCheckIn(SoftwareEngineer e) {
+        return e.getManager().equals(this) && e.getCodeAccess();
+    }
+
+    public boolean requestBonus(Employee e, double bonus) {
+        BusinessLead manager = (BusinessLead) getAccountantSupport().getManager();
+        return manager.requestBonus(e, bonus);
+    }
+
+    public String getTeamStatus() {
+        if (team.isEmpty()) {
+            return this.employeeStatus() + " and no direct reports yet";
+        } else {
+            StringBuilder teamStatus = new StringBuilder();
+            for (SoftwareEngineer engineer : team) {
+                teamStatus.append(engineer.employeeStatus()).append("\n");
+            }
+            return this.employeeStatus() + " and is managing: \n" + teamStatus.toString();
+        }
+    }
+
+    public ArrayList<SoftwareEngineer> getTeam() {
+        return team;
+    }
+}
